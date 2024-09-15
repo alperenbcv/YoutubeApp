@@ -59,4 +59,12 @@ public class LikeController {
 		);
 		return like;
 	}
+	
+	public Integer getLikeCountByVideoId(Long videoId) {
+		return likeService.getLikeCountByVideoId(videoId);
+	}
+	
+    public Integer getDislikeCountByVideoId(Long videoId) {
+        return likeService.getDislikeCountByVideoId(videoId);
+    }
 }

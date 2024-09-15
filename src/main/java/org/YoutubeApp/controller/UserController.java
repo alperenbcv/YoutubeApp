@@ -1,9 +1,11 @@
 package org.YoutubeApp.controller;
 
+import org.YoutubeApp.dto.UserDTO;
 import org.YoutubeApp.entity.User;
 import org.YoutubeApp.entity.Video;
 import org.YoutubeApp.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,13 +44,22 @@ public class UserController {
         return false;
 	}
 	
+	public List<UserDTO> findAllAsDTO() {
+		try{
+            return userService.findAllAsDTO();
+        } catch (Exception e) {
+            System.err.println("Controller FindAllAsDTO Hata!");
+        }
+        return new ArrayList<>();
+	}
+	
 	public List<User> findAll() {
 		try{
             return userService.findAll();
         } catch (Exception e) {
             System.err.println("Controller FindAll Hata!");
         }
-        return null;
+        return new ArrayList<>();
 	}
 	
 	public Optional<User> findById(Long id) {
@@ -58,5 +69,14 @@ public class UserController {
 				() -> System.out.println("Controller Böyle bir user bulunamadı.")
 		);
 		return user;
+	}
+	
+	public Optional<UserDTO> findByUsernameAsDTO(String username) {
+		Optional<UserDTO> userDTO = userService.findByUsernameAsDTO(username);
+        userDTO.ifPresentOrElse(
+                u -> System.out.println("Controller UserDTO bulundu: " + u.getUsername()),
+                () -> System.out.println("Controller Böyle bir userDTO bulunamadı.")
+        );
+        return userDTO;
 	}
 }

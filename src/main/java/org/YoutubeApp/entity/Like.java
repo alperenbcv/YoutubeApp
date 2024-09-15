@@ -11,8 +11,7 @@ public class Like extends BaseEntity {
 	public Like() {
 	}
 	
-	public Like(Long videoId, Long userId, ELikeStatus likeStatus,Integer state, Long createdAt,Long updatedAt) {
-		super(state, createdAt, updatedAt);
+	public Like(Long videoId, Long userId, ELikeStatus likeStatus) {
 		this.videoId = videoId;
 		this.userId = userId;
 		this.likeStatus = likeStatus;

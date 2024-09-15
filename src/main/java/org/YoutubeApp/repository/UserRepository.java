@@ -61,4 +61,14 @@ public class UserRepository implements ICRUD<User> {
 		}
 		return Optional.empty();
 	}
+	
+	public Optional<User> findByUsername(String username) {
+		sql="SELECT * FROM tbluser WHERE username ILIKE " + username;
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.findById(User.class,"tbluser",username,rs);
+		}
+		return Optional.empty();
+	}
 }

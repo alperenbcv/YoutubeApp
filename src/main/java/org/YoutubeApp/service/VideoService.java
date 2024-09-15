@@ -1,11 +1,14 @@
 package org.YoutubeApp.service;
 
+import org.YoutubeApp.dto.VideoDTO;
+import org.YoutubeApp.entity.ECategory;
 import org.YoutubeApp.entity.User;
 import org.YoutubeApp.entity.Video;
 import org.YoutubeApp.repository.UserRepository;
 import org.YoutubeApp.repository.VideoRepository;
 import org.YoutubeApp.utility.ICRUDService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,8 +74,17 @@ public class VideoService implements ICRUDService<Video> {
 		return videoRepository.findAll();
 	}
 	
+	
 	@Override
 	public Optional<Video> findById(Long id) {
 		return videoRepository.findById(id);
+	}
+	
+	public List<Video> findByTitle(String title) {
+		return videoRepository.findByTitle(title);
+	}
+	
+	public List<Video> findByCategory(ECategory category) {
+		return videoRepository.findByCategory(category);
 	}
 }

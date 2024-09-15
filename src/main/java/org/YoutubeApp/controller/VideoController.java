@@ -1,10 +1,13 @@
 package org.YoutubeApp.controller;
 
+import org.YoutubeApp.dto.VideoDTO;
+import org.YoutubeApp.entity.ECategory;
 import org.YoutubeApp.entity.User;
 import org.YoutubeApp.entity.Video;
 import org.YoutubeApp.service.UserService;
 import org.YoutubeApp.service.VideoService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,4 +62,25 @@ public class VideoController {
 		);
 		return video;
 	}
+	
+	public List<Video> findByTitle(String title) {
+		try{
+			return videoService.findByTitle(title);
+		} catch (Exception e) {
+			System.err.println("Controller findByTitle Hata!");
+		}
+		return new ArrayList<>();
+	}
+	
+	public List<Video> findByCategory(ECategory category) {
+		try{
+			return videoService.findByCategory(category);
+		} catch (Exception e) {
+			System.err.println("Controller findByTitle Hata!");
+		}
+		return new ArrayList<>();
+	}
+	
+//	public List<Video> findByDate(String startDate, String endDate) {
+//	}
 }

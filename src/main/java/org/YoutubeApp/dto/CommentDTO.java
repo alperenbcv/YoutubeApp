@@ -1,25 +1,16 @@
-package org.YoutubeApp.entity;
+package org.YoutubeApp.dto;
 
-import java.time.LocalDateTime;
-
-public class Comment extends BaseEntity {
+public class CommentDTO extends BaseEntityDTO {
 	private Long id;
 	private String content;
 	private Long videoId;
 	private Long userId;
 	
-	public Comment() {
+	public CommentDTO() {
 	}
 	
-	public Comment(String content, Long videoId, Long userId) {
-		this.content = content;
-		this.videoId = videoId;
-		this.userId = userId;
-	}
-	
-	public Comment(Long id, String content, Long videoId, Long userId,Integer state, Long createdAt, Long updatedAt) {
-		super(state, createdAt, updatedAt);
-		this.id = id;
+	public CommentDTO(String content, Long videoId, Long userId,Long createdAt, Long updatedAt) {
+		super(createdAt, updatedAt);
 		this.content = content;
 		this.videoId = videoId;
 		this.userId = userId;

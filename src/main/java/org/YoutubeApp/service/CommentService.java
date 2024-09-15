@@ -74,4 +74,8 @@ public class CommentService implements ICRUDService<Comment> {
 	public Optional<Comment> findById(Long id) {
 		return commentRepository.findById(id);
 	}
+	
+	public List<Comment> findCommentsByVideoId(Long videoId) {
+        return commentRepository.findCommentsByVideoId(videoId);
+    }
 }

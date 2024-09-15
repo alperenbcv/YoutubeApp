@@ -60,4 +60,9 @@ public class CommentController {
 		);
 		return comment;
 	}
+	
+	public List<Comment> findCommentsByVideoId(Long id) {
+		List<Comment> commentsByVideoId = commentService.findCommentsByVideoId(id);
+		return commentsByVideoId;
+    }
 }

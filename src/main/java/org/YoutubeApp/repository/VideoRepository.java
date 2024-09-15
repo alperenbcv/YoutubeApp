@@ -1,6 +1,7 @@
 package org.YoutubeApp.repository;
 
 import org.YoutubeApp.entity.Comment;
+import org.YoutubeApp.entity.ECategory;
 import org.YoutubeApp.entity.Video;
 import org.YoutubeApp.utility.ConnectionProvider;
 import org.YoutubeApp.utility.ICRUD;
@@ -56,5 +57,23 @@ public class VideoRepository implements ICRUD<Video> {
 			return SQLQueryBuilder.findById(Video.class,"tblvideo",id,rs);
 		}
 		return Optional.empty();
+	}
+	
+	public List<Video> findByTitle(String title) {
+		Optional<ResultSet> resultSet = connectionProvider.executeQuery("SELECT * FROM tblvideo WHERE title ILIKE '%" + title + "%'");
+		if (resultSet.isPresent()) {
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.findByTitle(Video.class, "tblvideo", title, rs);
+		}
+		return new ArrayList<>();
+	}
+	
+	public List<Video> findByCategory(ECategory category) {
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery("SELECT * FROM tblvideo WHERE category = '" + category+ "'");
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.findByTitle(Video.class,"tblvideo",category,rs);
+		}
+		return new ArrayList<>();
 	}
 }

@@ -1,6 +1,7 @@
 package org.YoutubeApp.service;
 
 import org.YoutubeApp.entity.Comment;
+import org.YoutubeApp.entity.ELikeStatus;
 import org.YoutubeApp.entity.Like;
 import org.YoutubeApp.repository.CommentRepository;
 import org.YoutubeApp.repository.LikeRepository;
@@ -20,8 +21,14 @@ public class LikeService implements ICRUDService<Like> {
 	@Override
 	public Optional<Like> save(Like like) {
 		try {
-			likeRepository.save(like);
-			System.out.println("Like saved successfully!");
+			if(likeUniqueCheck(like)) {
+				likeRepository.save(like);
+				System.out.println("Like saved successfully!");
+			}
+			else {
+                System.out.println("Like already exists! Save operation failed!");
+                return Optional.empty();
+            }
 		}
 		catch (Exception e) {
 			System.err.println("Service save Hata!");
@@ -76,4 +83,34 @@ public class LikeService implements ICRUDService<Like> {
 	public Optional<Like> findById(Long id) {
 		return likeRepository.findById(id);
 	}
+	
+	public boolean likeUniqueCheck(Like like){
+		String query = "SELECT * FROM tbllike WHERE userid = '" + like.getUserId() + "' AND videoId = '" + like.getVideoId() + "'";
+		List<Like> byQuery = likeRepository.findByQuery(query);
+		if(byQuery.isEmpty()){
+			return true;
+		} else {
+			Like existingLike = byQuery.get(0);
+			if(existingLike.getLikeStatus() != like.getLikeStatus()) {
+				existingLike.setLikeStatus(like.getLikeStatus());
+				likeRepository.update(existingLike);
+			}
+			return false;
+		}
+	}
+	
+	public Integer getLikeCountByVideoId(Long videoId) {
+		String query =
+				"SELECT COUNT(*) FROM tbllike WHERE videoId = '" + videoId + "' AND likestatus = 'LIKE'";
+		
+		return likeRepository.findCountByQuery(query);
+	}
+	
+	public Integer getDislikeCountByVideoId(Long videoId) {
+		String query =
+				"SELECT COUNT(*) FROM tbllike WHERE videoId = '" + videoId + "' AND likestatus = 'DISLIKE'";
+		return likeRepository.findCountByQuery(query);
+	}
+	
+	
 }

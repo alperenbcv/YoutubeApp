@@ -60,4 +60,35 @@ public class LikeRepository implements ICRUD<Like> {
 		}
 		return Optional.empty();
 	}
+	
+	public List<Like> findByQuery(String query) {
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery(query);
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.generateList(Like.class,"tbllike",rs);
+		}
+		return new ArrayList<>();
+	}
+	
+	public Integer findCountByQuery(String query) {
+		Optional<ResultSet> resultSet = connectionProvider.executeQuery(query);
+		if (resultSet.isPresent()) {
+			ResultSet resultSet1 = resultSet.get();
+			
+			try {
+				if (resultSet1.next()) {
+					int count = resultSet1.getInt(1);
+					return count;
+				} else {
+					System.out.println("No results found.");
+				}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Query failed or returned no results.");
+		}
+		return 0;
+	}
 }

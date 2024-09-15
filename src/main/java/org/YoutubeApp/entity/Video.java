@@ -8,9 +8,9 @@ public class Video extends BaseEntity {
 	private String title;
 	private String description;
 	private ECategory category;
-	private Integer viewCount=0;
-	private Integer likeCount=0;
-	private Integer dislikeCount=0;
+	private Long viewCount=0L;
+	private Long likeCount=0L;
+	private Long dislikeCount=0L;
 	
 	public Video() {
 	}
@@ -22,8 +22,8 @@ public class Video extends BaseEntity {
 		this.category = category;
 	}
 	
-	public Video(Long uploaderId, String title, String description, ECategory category, Integer viewCount,
-	             Integer likeCount, Integer dislikeCount, Integer state, Long createdAt, Long updatedAt) {
+	public Video(Long uploaderId, String title, String description, ECategory category, Long viewCount,
+	             Long likeCount, Long dislikeCount, Integer state, Long createdAt, Long updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.uploaderId=uploaderId;
 		this.title = title;
@@ -34,8 +34,8 @@ public class Video extends BaseEntity {
 		this.dislikeCount = dislikeCount;
 	}
 	
-	public Video(Long id, Long uploaderId, String title, String description,ECategory category, Integer viewCount,
-	             Integer likeCount,Integer dislikeCount,Integer state, Long createdAt, Long updatedAt) {
+	public Video(Long id, Long uploaderId, String title, String description,ECategory category, Long viewCount,
+	             Long likeCount,Long dislikeCount,Integer state, Long createdAt, Long updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.id = id;
 		this.uploaderId=uploaderId;
@@ -55,11 +55,19 @@ public class Video extends BaseEntity {
 		this.category = category;
 	}
 	
-	public Integer getDislikeCount() {
+	public Long getUploaderId() {
+		return uploaderId;
+	}
+	
+	public void setUploaderId(Long uploaderId) {
+		this.uploaderId = uploaderId;
+	}
+	
+	public Long getDislikeCount() {
 		return dislikeCount;
 	}
 	
-	public void setDislikeCount(Integer dislikeCount) {
+	public void setDislikeCount(Long dislikeCount) {
 		this.dislikeCount = dislikeCount;
 	}
 	
@@ -87,19 +95,19 @@ public class Video extends BaseEntity {
 		this.description = description;
 	}
 	
-	public Integer getViewCount() {
+	public Long getViewCount() {
 		return viewCount;
 	}
 	
-	public void setViewCount(Integer viewCount) {
+	public void setViewCount(Long viewCount) {
 		this.viewCount = viewCount;
 	}
 	
-	public Integer getLikeCount() {
+	public Long getLikeCount() {
 		return likeCount;
 	}
 	
-	public void setLikeCount(Integer likeCount) {
+	public void setLikeCount(Long likeCount) {
 		this.likeCount = likeCount;
 	}
 	

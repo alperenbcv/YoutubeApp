@@ -61,4 +61,13 @@ public class CommentRepository implements ICRUD<Comment> {
 		}
 		return Optional.empty();
 	}
+	
+	public List<Comment> findCommentsByVideoId(Long videoId) {
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery("SELECT * FROM tblcomment WHERE videoid=" + videoId);
+        if(resultSet.isPresent()){
+            ResultSet rs = resultSet.get();
+            return SQLQueryBuilder.generateList(Comment.class,"tblcomment", rs);
+        }
+        return new ArrayList<>();
+	}
 }
