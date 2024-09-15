@@ -41,9 +41,9 @@ public class VideoModule {
 			case 2:
 				searchByCategory();
 				break;
-			case 3:
-				searchByDate();
-				break;
+//			case 3:
+//				searchByDate();
+//				break;
 			case 4:
 				break;
 			default:
@@ -51,20 +51,20 @@ public class VideoModule {
 		}
 	}
 	
-	private static void searchByDate() {
-		System.out.println("Enter start date (YYYY-MM-DD): ");
-        String startDate = scanner.nextLine();
-        System.out.println("Enter end date (YYYY-MM-DD): ");
-        String endDate = scanner.nextLine();
-        
-        List<Video> videoList = videoController.findByDate(startDate, endDate);
-        if (videoList.size() == 0) {
-            System.out.println("No videos found in the given date range. Please try again. ");
-        }
-        else {
-            askUserForDisplay(videoList);
-        }
-	}
+//	private static void searchByDate() {
+//		System.out.println("Enter start date (YYYY-MM-DD): ");
+//        String startDate = scanner.nextLine();
+//        System.out.println("Enter end date (YYYY-MM-DD): ");
+//        String endDate = scanner.nextLine();
+//
+//        List<Video> videoList = videoController.findByDate(startDate, endDate);
+//        if (videoList.size() == 0) {
+//            System.out.println("No videos found in the given date range. Please try again. ");
+//        }
+//        else {
+//            askUserForDisplay(videoList);
+//        }
+//	}
 	
 	private static void searchByCategory() {
 		System.out.println("1-Music");
