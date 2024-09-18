@@ -70,4 +70,14 @@ public class CommentRepository implements ICRUD<Comment> {
         }
         return new ArrayList<>();
 	}
+	
+	public List<Comment> getCommentsByUserId(Long userId) {
+		String sql="SELECT * FROM tblcomment WHERE userid=" + userId;
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.generateList(Comment.class,"tblcomment", rs);
+		}
+		return new ArrayList<>();
+	}
 }

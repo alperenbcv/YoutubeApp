@@ -91,4 +91,14 @@ public class LikeRepository implements ICRUD<Like> {
 		}
 		return 0;
 	}
+	
+	public List<Like> getLikesByUserId(Long userId) {
+		String sql="SELECT * FROM tbllike WHERE userid=" + userId;
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.generateList(Like.class,"tbllike", rs);
+		}
+		return new ArrayList<>();
+	}
 }

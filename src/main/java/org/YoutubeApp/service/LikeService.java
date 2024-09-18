@@ -112,5 +112,8 @@ public class LikeService implements ICRUDService<Like> {
 		return likeRepository.findCountByQuery(query);
 	}
 	
+	public List<Like> getLikesByUserId(Long userId) {
+		return likeRepository.getLikesByUserId(userId);
+	}
 	
 }

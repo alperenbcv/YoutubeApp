@@ -78,4 +78,8 @@ public class CommentService implements ICRUDService<Comment> {
 	public List<Comment> findCommentsByVideoId(Long videoId) {
         return commentRepository.findCommentsByVideoId(videoId);
     }
+	
+	public List<Comment> getCommentsByUserId(Long userId) {
+		return commentRepository.getCommentsByUserId(userId);
+	}
 }

@@ -67,4 +67,8 @@ public class LikeController {
     public Integer getDislikeCountByVideoId(Long videoId) {
         return likeService.getDislikeCountByVideoId(videoId);
     }
+	
+	public List<Like> getLikesByUserId(Long userId) {
+		return likeService.getLikesByUserId(userId);
+	}
 }

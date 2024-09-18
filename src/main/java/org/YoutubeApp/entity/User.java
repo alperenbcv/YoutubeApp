@@ -1,5 +1,6 @@
 package org.YoutubeApp.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class User extends BaseEntity  {
@@ -34,7 +35,7 @@ public class User extends BaseEntity  {
 		this.role = role;
 	}
 	
-	public User(String name, String surname, String email, String username, String password, ERole role, Integer state, Long createdAt, Long updatedAt) {
+	public User(String name, String surname, String email, String username, String password, ERole role, Integer state, LocalDate createdAt, LocalDate updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.name = name;
 		this.surname = surname;
@@ -44,7 +45,7 @@ public class User extends BaseEntity  {
 		this.role = role;
 	}
 	
-	public User(Long id, String name, String surname, String email, String username, String password, ERole role,Integer state, Long createdAt, Long updatedAt) {
+	public User(Long id, String name, String surname, String email, String username, String password, ERole role,Integer state, LocalDate createdAt, LocalDate updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.id = id;
 		this.name = name;

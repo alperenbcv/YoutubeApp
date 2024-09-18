@@ -49,14 +49,16 @@ public class MenuModule {
 	
 	public static Integer homeMenuOpt() {
 		boolean isValid = false;
-		System.out.println("\n---Welcome "+user.getUsername()+" ---");
+		System.out.println("\n---Welcome, "+user.getUsername()+" ---");
 		System.out.println("1-Video Search");
 		System.out.println("2-Video Upload");
-		System.out.println("3-User List");
+		System.out.println("3-Video List");
 		System.out.println("4-Profile");
-		System.out.println("0-Logout");
+		System.out.println("9-Logout");
+		System.out.println("0-Exit");
 		System.out.println("Selection: ");
 		int selection = scanner.nextInt();
+		scanner.nextLine();
 		return selection;
 	}
 	
@@ -69,14 +71,22 @@ public class MenuModule {
 			case 2:
 				VideoModule.videoUpload();
 				break;
-//			case 3:
-//				UserModule.listAll();
-//				break;
-//			case 4:
-//				UserModule.myProfile();
-//				break;
+			case 3:
+				Integer i1 = VideoModule.displayVideoMenu();
+				VideoModule.displayVideoSelection(i1);
+				break;
+			case 4:
+				Integer i = UserModule.myProfile();
+				UserModule.myProfileSelection(i);
+				break;
 			case 9:
 				System.out.println("Logout...");
+				user = null;
+				firstMenu();
+			case 0:
+				System.out.println("Exiting...");
+                System.exit(0);
+                break;
 			default:
 				System.out.println("Invalid selection. Please try again.");
 		}

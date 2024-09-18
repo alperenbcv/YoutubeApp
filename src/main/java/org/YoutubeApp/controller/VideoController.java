@@ -81,6 +81,52 @@ public class VideoController {
 		return new ArrayList<>();
 	}
 	
-//	public List<Video> findByDate(String startDate, String endDate) {
-//	}
+	public List<Video> findByDate(String startDate, String endDate) {
+		try{
+			return videoService.findByDate(startDate,endDate);
+		} catch (Exception e) {
+			System.err.println("Controller findByTitle Hata!");
+		}
+		return new ArrayList<>();
+	}
+	
+	public List<Video> getVideosByUserId(Long userId) {
+		return videoService.getVideosByUserId(userId);
+	}
+	
+	public List<Video> findAllByTitle() {
+		try{
+            return videoService.findAllByTitle();
+        } catch (Exception e) {
+            System.err.println("Controller findAllByTitle Hata!");
+        }
+        return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByViewCount() {
+		try{
+            return videoService.findAllByViewCount();
+        } catch (Exception e) {
+            System.err.println("Controller findAllByViewCount Hata!");
+        }
+        return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByLikeCount() {
+		try{
+            return videoService.findAllByLikeCount();
+        } catch (Exception e) {
+            System.err.println("Controller findAllByLikeCount Hata!");
+        }
+        return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByDislikeCount() {
+		try{
+            return videoService.findAllByDislikeCount();
+        } catch (Exception e) {
+            System.err.println("Controller findAllByDislikeCount Hata!");
+        }
+        return new ArrayList<>();
+	}
 }

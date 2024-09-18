@@ -2,9 +2,7 @@ package org.YoutubeApp.service;
 
 import org.YoutubeApp.dto.UserDTO;
 import org.YoutubeApp.dto.VideoDTO;
-import org.YoutubeApp.entity.ERole;
-import org.YoutubeApp.entity.User;
-import org.YoutubeApp.entity.Video;
+import org.YoutubeApp.entity.*;
 import org.YoutubeApp.repository.UserRepository;
 import org.YoutubeApp.utility.ConnectionProvider;
 import org.YoutubeApp.utility.ICRUDService;
@@ -149,4 +147,6 @@ public class UserService implements ICRUDService<User> {
 		}
 		return false;
 	}
+	
+	
 }

@@ -198,7 +198,7 @@ public class SQLQueryBuilder {
 		return Optional.empty();
 	}
 	
-	public static <T> List<T> findByTitle(Class<T> entityClass, String tableName, Object title, ResultSet resultSet) {
+	public static <T> List<T> findByTitle(Class<T> entityClass,ResultSet resultSet) {
 		List<T> resultList = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
@@ -350,4 +350,5 @@ public class SQLQueryBuilder {
 		
 		return Optional.empty();
 	}
+	
 }

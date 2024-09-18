@@ -1,6 +1,8 @@
 package org.YoutubeApp.controller;
 
 import org.YoutubeApp.dto.UserDTO;
+import org.YoutubeApp.entity.Comment;
+import org.YoutubeApp.entity.Like;
 import org.YoutubeApp.entity.User;
 import org.YoutubeApp.entity.Video;
 import org.YoutubeApp.service.UserService;
@@ -79,4 +81,5 @@ public class UserController {
         );
         return userDTO;
 	}
+	
 }

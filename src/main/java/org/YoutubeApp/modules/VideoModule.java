@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import static java.lang.StringTemplate.STR;
+import static org.YoutubeApp.modules.UserModule.usercontroller;
 
 public class VideoModule {
 	static Scanner scanner = new Scanner(System.in);
@@ -23,10 +24,11 @@ public class VideoModule {
 	static LikeController likeController = new LikeController();
 	
 	public static Integer videoSearch() {
+		System.out.println("---Video Search---");
 		System.out.println("1-Search by Title");
 		System.out.println("2-Search by Category");
 		System.out.println("3-Search by Date");
-		System.out.println("Back to Home");
+		System.out.println("4-Back to Home");
 		System.out.println("Enter your choice: ");
 		int choice = scanner.nextInt();
 		scanner.nextLine();
@@ -41,9 +43,9 @@ public class VideoModule {
 			case 2:
 				searchByCategory();
 				break;
-//			case 3:
-//				searchByDate();
-//				break;
+			case 3:
+				searchByDate();
+				break;
 			case 4:
 				break;
 			default:
@@ -51,22 +53,23 @@ public class VideoModule {
 		}
 	}
 	
-//	private static void searchByDate() {
-//		System.out.println("Enter start date (YYYY-MM-DD): ");
-//        String startDate = scanner.nextLine();
-//        System.out.println("Enter end date (YYYY-MM-DD): ");
-//        String endDate = scanner.nextLine();
-//
-//        List<Video> videoList = videoController.findByDate(startDate, endDate);
-//        if (videoList.size() == 0) {
-//            System.out.println("No videos found in the given date range. Please try again. ");
-//        }
-//        else {
-//            askUserForDisplay(videoList);
-//        }
-//	}
+	private static void searchByDate() {
+		System.out.println("Enter start date (YYYY-MM-DD): ");
+        String startDate = scanner.nextLine();
+        System.out.println("Enter end date (YYYY-MM-DD): ");
+        String endDate = scanner.nextLine();
+
+        List<Video> videoList = videoController.findByDate(startDate, endDate);
+        if (videoList.size() == 0) {
+            System.out.println("No videos found in the given date range. Please try again. ");
+        }
+        else {
+            askUserForDisplay(videoList);
+        }
+	}
 	
 	private static void searchByCategory() {
+		System.out.println("Categories:");
 		System.out.println("1-Music");
 		System.out.println("2-Sports");
 		System.out.println("3-Technology");
@@ -140,35 +143,26 @@ public class VideoModule {
 		List<Video> byTitle = videoController.findByTitle(title);
 		if (byTitle.size() == 0) {
 			System.out.println("No videos found with the given title. Please try again. ");
-			return;
 		}
 		else {
-			System.out.println("Search Results: " + byTitle.size() + " videos found!");
-			for (int i = 0; i < byTitle.size(); i++) {
-				System.out.println((i + 1) + "- " + byTitle.get(i).getTitle());
-			}
-			
-			System.out.println("Do you want to display any of the results?");
-			System.out.println("Enter the number of the video to display, or 0 to exit:");
-			
-			int choice = scanner.nextInt();
-			scanner.nextLine();
-			
-			if (choice > 0 && choice <= byTitle.size()) {
-				Video selectedVideo = byTitle.get(choice - 1);
-				incrementViewCount(selectedVideo);
-				VideoModel videoModel = videoToModel(selectedVideo);
-				displayVideoDetails(videoModel);
-				videoInteractionMenu(selectedVideo);
-			}
-			else {
-				System.out.println("Exiting without displaying any video.");
-			}
+			askUserForDisplay(byTitle);
 		}
 	}
 	
+	public static void searchByUser(){
+		List<Video> videosByUserId = videoController.getVideosByUserId(MenuModule.user.getId());
+		if (videosByUserId.size() == 0) {
+            System.out.println("You have not uploaded any video yet.");
+        }
+		else {
+            askUserForDisplay(videosByUserId);
+        }
+	}
+	
+	
 	public static void videoInteractionMenu(Video video) {
 		while (true) {
+			System.out.println("\n---Video Interaction Menu---");
 			System.out.println("Choose an option:");
 			System.out.println("1- Like the video");
 			System.out.println("2- Dislike the video");
@@ -181,7 +175,15 @@ public class VideoModule {
 			switch (choice) {
 				case 1:
 					Like like=new Like(video.getId(), MenuModule.user.getId(), ELikeStatus.LIKE);
-					likeController.save(like);
+					Optional<Like> save = likeController.save(like);
+					if(save.isPresent()) {
+						if(save.get().getLikeStatus() == ELikeStatus.LIKE) {
+							video.setLikeCount(video.getLikeCount() + 1);
+						}
+						else {
+							video.setDislikeCount(video.getDislikeCount() + 1);
+						}
+					}
 					videoController.update(video);
 					System.out.println("You liked the video.");
 					break;
@@ -283,9 +285,13 @@ public class VideoModule {
 	}
 	
 	private static void askUserForDisplay(List<Video> videos) {
+		
 		System.out.println("Search Results: " + videos.size() + " videos found!");
 		for (int i = 0; i < videos.size(); i++) {
-			System.out.println((i + 1) + "- " + videos.get(i).getTitle());
+			System.out.println((i + 1) + " Title: " + videos.get(i).getTitle() + " - View: " + videos.get(i).getViewCount() + " - Like: "
+					                   + videos.get(i).getLikeCount() + " - Dislike: " + videos.get(i).getDislikeCount());
+			//likeController.getLikeCountByVideoId(videos.get(i).getId())
+			//likeController.getDislikeCountByVideoId(videos.get(i).getId())
 		}
 		
 		System.out.println("Do you want to display any of the results?");
@@ -326,5 +332,44 @@ public class VideoModule {
 			videoController.save(new Video(MenuModule.user.getId(), title, description, category));
 			System.out.println("Video uploaded successfully. Returning to the main menu...");
         }
+	}
+	
+	public static Integer displayVideoMenu() {
+		System.out.println("\n---Video Filter Menu---");
+		System.out.println("1-List By Alphabetical Order");
+		System.out.println("2-List By View Count");
+		System.out.println("3-List By Most Liked");
+		System.out.println("4-List By Most Disliked");
+		System.out.println("5-Back to Main Menu");
+		System.out.println("Selection: ");
+		int choice = scanner.nextInt();
+		scanner.nextLine();
+		return choice;
+	}
+	
+	public static void displayVideoSelection(Integer selection){
+		switch (selection){
+			case 1:
+                List<Video> videosByAlphabeticalOrder = videoController.findAllByTitle();
+                askUserForDisplay(videosByAlphabeticalOrder);
+                break;
+            case 2:
+                List<Video> videosByViewCount = videoController.findAllByViewCount();
+                askUserForDisplay(videosByViewCount);
+                break;
+            case 3:
+                List<Video> videosByMostLiked = videoController.findAllByLikeCount();
+                askUserForDisplay(videosByMostLiked);
+                break;
+            case 4:
+                List<Video> videosByMostDisliked = videoController.findAllByDislikeCount();
+                askUserForDisplay(videosByMostDisliked);
+                break;
+			case 5:
+				return;
+            default:
+                System.out.println("Invalid selection. Please try again.");
+                break;
+		}
 	}
 }

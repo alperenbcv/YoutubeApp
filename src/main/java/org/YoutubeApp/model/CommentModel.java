@@ -3,6 +3,8 @@ package org.YoutubeApp.model;
 import org.YoutubeApp.entity.User;
 import org.YoutubeApp.entity.Video;
 
+import java.time.LocalDate;
+
 public class CommentModel extends BaseEntity {
 	private Long id;
 	private String content;
@@ -12,14 +14,14 @@ public class CommentModel extends BaseEntity {
 	public CommentModel() {
 	}
 	
-	public CommentModel(String content, Video video, User user, Integer state, Long createdAt, Long updatedAt) {
-		super(state, createdAt, updatedAt);
+	public CommentModel(Long id,String content, Video video, User user) {
+		this.id = id;
 		this.content = content;
 		this.video = video;
 		this.user = user;
 	}
 	
-	public CommentModel(Long id, String content, Video video, User user, Integer state, Long createdAt, Long updatedAt) {
+	public CommentModel(Long id, String content, Video video, User user, Integer state, LocalDate createdAt, LocalDate updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.id = id;
 		this.content = content;

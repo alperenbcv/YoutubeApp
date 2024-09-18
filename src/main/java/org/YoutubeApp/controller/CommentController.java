@@ -65,4 +65,8 @@ public class CommentController {
 		List<Comment> commentsByVideoId = commentService.findCommentsByVideoId(id);
 		return commentsByVideoId;
     }
+	
+	public List<Comment> getCommentsByUserId(Long userId) {
+		return commentService.getCommentsByUserId(userId);
+	}
 }

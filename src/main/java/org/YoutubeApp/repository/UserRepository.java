@@ -1,7 +1,6 @@
 package org.YoutubeApp.repository;
 
-import org.YoutubeApp.entity.ERole;
-import org.YoutubeApp.entity.User;
+import org.YoutubeApp.entity.*;
 import org.YoutubeApp.utility.ConnectionProvider;
 import org.YoutubeApp.utility.ICRUD;
 import org.YoutubeApp.utility.SQLQueryBuilder;

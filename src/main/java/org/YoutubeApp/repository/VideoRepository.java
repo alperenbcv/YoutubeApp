@@ -63,7 +63,7 @@ public class VideoRepository implements ICRUD<Video> {
 		Optional<ResultSet> resultSet = connectionProvider.executeQuery("SELECT * FROM tblvideo WHERE title ILIKE '%" + title + "%'");
 		if (resultSet.isPresent()) {
 			ResultSet rs = resultSet.get();
-			return SQLQueryBuilder.findByTitle(Video.class, "tblvideo", title, rs);
+			return SQLQueryBuilder.findByTitle(Video.class, rs);
 		}
 		return new ArrayList<>();
 	}
@@ -72,8 +72,68 @@ public class VideoRepository implements ICRUD<Video> {
 		Optional<ResultSet> resultSet=connectionProvider.executeQuery("SELECT * FROM tblvideo WHERE category = '" + category+ "'");
 		if(resultSet.isPresent()){
 			ResultSet rs = resultSet.get();
-			return SQLQueryBuilder.findByTitle(Video.class,"tblvideo",category,rs);
+			return SQLQueryBuilder.findByTitle(Video.class,rs);
 		}
 		return new ArrayList<>();
+	}
+	
+	public List<Video> findByDate(String startDate, String endDate) {
+		String sql = "SELECT * FROM tblvideo WHERE createdat BETWEEN '" + startDate + "' AND '" + endDate + "'";
+		Optional<ResultSet> resultSet = connectionProvider.executeQuery(sql);
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.findByTitle(Video.class,rs);
+		}
+		return new ArrayList<>();
+	}
+	
+	public List<Video> getVideosByUserId(Long userId) {
+		String sql="SELECT * FROM tblvideo WHERE uploaderid=" + userId;
+		Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+		if(resultSet.isPresent()){
+			ResultSet rs = resultSet.get();
+			return SQLQueryBuilder.generateList(Video.class,"tblvideo", rs);
+		}
+		return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByTitle(){
+		String sql="SELECT * FROM tblvideo ORDER BY title LIMIT 10";
+        Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+        if(resultSet.isPresent()){
+            ResultSet rs = resultSet.get();
+            return SQLQueryBuilder.generateList(Video.class,"tblvideo", rs);
+        }
+        return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByViewCount(){
+		String sql="SELECT * FROM tblvideo ORDER BY viewcount DESC LIMIT 10";
+        Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+        if(resultSet.isPresent()){
+            ResultSet rs = resultSet.get();
+            return SQLQueryBuilder.generateList(Video.class,"tblvideo", rs);
+        }
+        return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByLikeCount(){
+		String sql="SELECT * FROM tblvideo ORDER BY likecount DESC LIMIT 10";
+        Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+        if(resultSet.isPresent()){
+            ResultSet rs = resultSet.get();
+            return SQLQueryBuilder.generateList(Video.class,"tblvideo", rs);
+        }
+        return new ArrayList<>();
+	}
+	
+	public List<Video> findAllByDislikeCount(){
+		String sql="SELECT * FROM tblvideo ORDER BY dislikecount DESC LIMIT 10";
+        Optional<ResultSet> resultSet=connectionProvider.executeQuery(sql);
+        if(resultSet.isPresent()){
+            ResultSet rs = resultSet.get();
+            return SQLQueryBuilder.generateList(Video.class,"tblvideo", rs);
+        }
+        return new ArrayList<>();
 	}
 }

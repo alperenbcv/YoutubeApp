@@ -1,5 +1,6 @@
 package org.YoutubeApp.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Comment extends BaseEntity {
@@ -17,7 +18,7 @@ public class Comment extends BaseEntity {
 		this.userId = userId;
 	}
 	
-	public Comment(Long id, String content, Long videoId, Long userId,Integer state, Long createdAt, Long updatedAt) {
+	public Comment(Long id, String content, Long videoId, Long userId, Integer state, LocalDate createdAt, LocalDate updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.id = id;
 		this.content = content;

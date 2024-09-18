@@ -1,5 +1,6 @@
 package org.YoutubeApp.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Like extends BaseEntity {
@@ -17,7 +18,7 @@ public class Like extends BaseEntity {
 		this.likeStatus = likeStatus;
 	}
 	
-	public Like( Long id, Long videoId, Long userId, ELikeStatus likeStatus,Integer state, Long createdAt,Long updatedAt) {
+	public Like(Long id, Long videoId, Long userId, ELikeStatus likeStatus, Integer state, LocalDate createdAt, LocalDate updatedAt) {
 		super(state, createdAt, updatedAt);
 		this.id = id;
 		this.videoId = videoId;

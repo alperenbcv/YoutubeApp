@@ -87,4 +87,28 @@ public class VideoService implements ICRUDService<Video> {
 	public List<Video> findByCategory(ECategory category) {
 		return videoRepository.findByCategory(category);
 	}
+	
+	public List<Video> findByDate(String startDate, String endDate) {
+		return videoRepository.findByDate(startDate, endDate);
+	}
+	
+	public List<Video> getVideosByUserId(Long userId) {
+		return videoRepository.getVideosByUserId(userId);
+	}
+	
+	public List<Video> findAllByTitle() {
+        return videoRepository.findAllByTitle();
+    }
+	
+	public List<Video> findAllByViewCount() {
+        return videoRepository.findAllByViewCount();
+    }
+	
+	public List<Video> findAllByLikeCount() {
+        return videoRepository.findAllByLikeCount();
+    }
+	
+	public List<Video> findAllByDislikeCount() {
+        return videoRepository.findAllByDislikeCount();
+    }
 }

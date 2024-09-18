@@ -1,15 +1,17 @@
 package org.YoutubeApp.model;
 
+import java.time.LocalDate;
+
 public class BaseEntity {
 	
 	private Integer state;
-	private Long createdAt;
-	private Long updatedAt;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 	
 	public BaseEntity() {
 	}
 	
-	public BaseEntity(Integer state, Long createdAt, Long updatedAt) {
+	public BaseEntity(Integer state, LocalDate createdAt, LocalDate updatedAt) {
 		this.state = state;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -23,19 +25,19 @@ public class BaseEntity {
 		this.state = state;
 	}
 	
-	public Long getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 	
-	public void setCreatedAt(Long createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 	
-	public Long getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 	
-	public void setUpdatedAt(Long updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 }
