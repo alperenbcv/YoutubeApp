@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class LoginModule {
 	private static Scanner scanner = new Scanner(System.in);
-	private static ConnectionProvider connectionProvider = new ConnectionProvider(); // Static initialization
+	private static ConnectionProvider connectionProvider = new ConnectionProvider();
 	
 	public static void login() {
 		boolean invalidCredentials = true;

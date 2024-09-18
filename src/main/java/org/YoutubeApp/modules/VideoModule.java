@@ -290,8 +290,6 @@ public class VideoModule {
 		for (int i = 0; i < videos.size(); i++) {
 			System.out.println((i + 1) + " Title: " + videos.get(i).getTitle() + " - View: " + videos.get(i).getViewCount() + " - Like: "
 					                   + videos.get(i).getLikeCount() + " - Dislike: " + videos.get(i).getDislikeCount());
-			//likeController.getLikeCountByVideoId(videos.get(i).getId())
-			//likeController.getDislikeCountByVideoId(videos.get(i).getId())
 		}
 		
 		System.out.println("Do you want to display any of the results?");
